@@ -1,7 +1,7 @@
 import { Page, Locator, expect } from "@playwright/test";
 
 export class BasePage {
-  readonly page: Page;
+  protected page: Page;
 
   constructor(page: Page) {
     this.page = page;
@@ -76,4 +76,16 @@ export class BasePage {
       throw error;
     }
   }
+
+  async open(path = ''): Promise<this> {
+    await this.page.goto(`${process.env.BASE_URL}${path}`);
+    return this;
+  }
+
+  async validateTitle(expected: string): Promise<this> {
+    await expect(this.page).toHaveTitle(expected);
+    return this;
+  }
+
+
 }

@@ -7,3 +7,6 @@ test("Verify page title", async ({ page })=>{
   console.log("Page title is: "+title);
   await expect(page).toHaveTitle("Utah Nursing School & Healthcare College | Provo College");
 });
+
+
+

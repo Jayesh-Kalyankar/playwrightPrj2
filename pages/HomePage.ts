@@ -1,5 +1,6 @@
 import { Locator, Page } from "@playwright/test";
-import { BasePage } from "./BasePage";
+import { BasePage } from "./base/BasePage";
+import { PageTitles } from '../data/pageTitles';
 
 export class HomePage extends BasePage {
   readonly headingText: Locator;
@@ -20,4 +21,9 @@ export class HomePage extends BasePage {
   async clickGetStarted() {
     await this.clickElement(this.getStartedBtn, "Get Started Button");
   }
+
+  async openPage(): Promise<this> {
+    return (await this.open('/')).validateTitle(PageTitles.home);
+  }
+
 }
