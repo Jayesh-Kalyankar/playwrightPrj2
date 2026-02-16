@@ -14,6 +14,8 @@ import { AppConfig } from "./config/app.config";
  */
 export default defineConfig({
   testDir: './tests',
+  globalSetup: require.resolve('./global-setup'),
+  globalTeardown: require.resolve('./global-teardown'),
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
