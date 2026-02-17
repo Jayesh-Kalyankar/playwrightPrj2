@@ -1,17 +1,17 @@
-import { chromium } from '@playwright/test';
+import { chromium } from "@playwright/test";
+import { LoginPage } from "./pages/LoginPage";
+import { EnvConfig } from "./config/env.config";
 
 async function globalSetup() {
-  console.log('Global setup started');
-
   const browser = await chromium.launch();
-  const context = await browser.newContext();
-  const page = await context.newPage();
+  const page = await browser.newPage();
 
-  // Example: warm up app, preload cache, fetch tokens, etc.
-  await page.goto(process.env.BASE_URL!);
+  const loginPage = new LoginPage(page);
+  await loginPage.login(EnvConfig.username, EnvConfig.password);
+  await loginPage.validateLoginSuccess();
 
+  await page.context().storageState({ path: "auth.json" });
   await browser.close();
-  console.log('Global setup completed');
 }
 
 export default globalSetup;
