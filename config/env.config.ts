@@ -10,7 +10,8 @@ dotenv.config({
 console.log(`Running tests on ENV: ${env}`);
 
 export const EnvConfig = {
-  env,
   baseUrl: process.env.BASE_URL!,
+  username: process.env.APP_USERNAME!,
+  password: process.env.APP_PASSWORD!,
+  timeout: 30000,
 };
-
