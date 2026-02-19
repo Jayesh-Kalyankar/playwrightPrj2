@@ -1,17 +1,29 @@
-import { chromium } from "@playwright/test";
-import { LoginPage } from "./pages/LoginPage";
-import { EnvConfig } from "./config/env.config";
+import fs from 'fs';
+import path from 'path';
+import { logger } from './utils/logger';
 
 async function globalSetup() {
-  const browser = await chromium.launch();
-  const page = await browser.newPage();
+  logger.info('========================================');
+  logger.info('🚀 TEST EXECUTION STARTED');
+  logger.info(`🕒 Start Time : ${new Date().toLocaleString()}`);
+  logger.info(`🌍 Environment : ${process.env.ENV || 'dev'}`);
+  logger.info('========================================');
 
-  const loginPage = new LoginPage(page);
-  await loginPage.login(EnvConfig.username, EnvConfig.password);
-  await loginPage.validateLoginSuccess();
+  // Ensure result directories exist
+  const folders = [
+    'test-results/logs',
+    'test-results/html-report',
+    'test-results/screenshots',
+    'test-results/videos'
+  ];
 
-  await page.context().storageState({ path: "auth.json" });
-  await browser.close();
+  folders.forEach(dir => {
+    const fullPath = path.join(process.cwd(), dir);
+    if (!fs.existsSync(fullPath)) {
+      fs.mkdirSync(fullPath, { recursive: true });
+    }
+  });
+  console.log('🔥🔥🔥 GLOBAL SETUP EXECUTED 🔥🔥🔥');
 }
 
 export default globalSetup;

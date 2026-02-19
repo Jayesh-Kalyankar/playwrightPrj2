@@ -3,6 +3,7 @@ import { BasePage } from "./base/BasePage";
 import { PageTitles } from '../data/pageTitles';
 import { expect } from "@playwright/test";
 import { LoginPage } from "./LoginPage";
+import { logger } from "../utils/logger";
 
 export class HomePage extends BasePage {
 
@@ -21,7 +22,9 @@ export class HomePage extends BasePage {
 
   async logout(): Promise<LoginPage> {
     await this.clickElement(this.menuButton(), "Menu Button");
+    logger.debug('Menu button clicked');
     await this.clickElement(this.LogoutButton(), "Logout Button");
+    logger.debug('Logout button clicked');
     return new LoginPage(this.page);
   }
 
