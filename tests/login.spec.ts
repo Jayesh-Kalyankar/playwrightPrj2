@@ -3,6 +3,7 @@ import { EnvConfig } from "../config/env.config";
 import { LoginPage } from "../pages/LoginPage";
 import { HomePage } from "../pages/HomePage";
 import { test , expect } from "../fixtures/test-Fixtures";
+import { logger } from '../utils/logger';
 
 // Test to validate login and logout functionality using Page Object Model
 /*
@@ -38,11 +39,14 @@ test("Another Way Login to application - using page object model", async ({ page
 
 
 test("Login using Fixture", async ( { loginPage }) => {
-    
+    logger.info('Test started');
     const homePage = await loginPage.login(EnvConfig.username, EnvConfig.password);
+    logger.debug('Login performed');
     await loginPage.validateLoginSuccess();
-
+    logger.debug('Login validated successfully');
     await homePage.logout();
+    logger.debug('Logout performed');
     await homePage.validateLogoutSuccess();
+    logger.info('Test completed');
 
 });

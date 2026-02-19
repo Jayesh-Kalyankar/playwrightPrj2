@@ -1,6 +1,7 @@
 import { test as base } from "@playwright/test";
 import { LoginPage } from "../pages/LoginPage"
 import { EnvConfig } from "../config/env.config";
+import { logger } from '../utils/logger';
 
 type MyFixture = {
     loginPage: LoginPage
